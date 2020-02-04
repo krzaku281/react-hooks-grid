@@ -1,0 +1,62 @@
+{
+  "name": "react-hooks-grid",
+  "version": "0.0.2",
+  "description": "Data grid in React Hooks",
+  "author": "Marek Krzak <krzakmarek88@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "npm run build",
+    "predeploy": "cd example && npm install && npm run build",
+    "deploy": "gh-pages -d example/build",
+    "format": "prettier {src,src/**,example/src,example/src/**}/*.{md,js,jsx,tsx} --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krzaku281/react-hooks-grid.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "data",
+    "grid",
+    "table",
+    "datagrid"
+  ],
+  "bugs": {
+    "url": "https://github.com/krzaku281/react-hooks-grid/issues"
+  },
+  "homepage": "https://github.com/krzaku281/react-hooks-grid#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "cross-env": "^6.0.3",
+    "gh-pages": "^2.2.0",
+    "prettier": "1.19.1",
+    "react": "^16.12.0",
+    "react-scripts": "^3.3.0",
+    "rollup": "^1.29.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-size-snapshot": "^0.10.0",
+    "rollup-plugin-terser": "^5.2.0"
+  },
+  "dependencies": {}
+}
