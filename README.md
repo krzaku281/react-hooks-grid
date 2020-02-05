@@ -1,15 +1,10 @@
 # react-hooks-grid
 
-Data Grid in React Hooks.
-
-- fully customizable
-- lightweight
+Lightweight and customizable data grid for React applications from 16.8 version.
 
 Now library is in progress.
 
-[![npm version](https://badge.fury.io/js/react-hooks-grid.svg)](https://badge.fury.io/js/react-hooks-grid) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![npm bundle size](https://img.shields.io/bundlephobia/min/react-hooks-grid?flat)
-
----
+[![npm version](https://badge.fury.io/js/react-hooks-grid.svg)](https://badge.fury.io/js/react-hooks-grid) ![npm bundle size](https://img.shields.io/bundlephobia/min/react-hooks-grid?flat) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation
 
@@ -19,7 +14,7 @@ $ npm install react-hooks-grid
 
 ## Live demo
 
-[Go to demo](https://krzaku281.github.io/react-hooks-grid/)
+Test it! Go to [live demo](https://krzaku281.github.io/react-hooks-grid/) with 100 000 rows.
 
 ## Quick start
 
@@ -45,7 +40,9 @@ export default DataGrid;
 
 ## Plugins
 
-All power of useGrid results from plugins that are fully customizable.
+All useGrid's power comes from plugins that can be fully customized to developer's needs. Additionally everyone can add custom plugin for him needs and create powerful data grid.
+
+To create your own plugin go to section useCustomPlugin.
 
 ### useSorting
 
@@ -200,21 +197,32 @@ order: 40
 
 ### useCustomPlugin
 
-If existing plugins that is not enough. Create custom ;)
+If existing plugins that is not enough. Create your own ;)
+
+Each plugin will be called during the grid update in a certain order. The property order is responsible for this. When you create your own plugin set appropriate order for it.
+
+Below is boilerplate for own plugins.
 
 ```sh
-export const useCustomPlugin = (anyParam, ...andNext) => updateGrid => {
-    // do logic
+export const useCustomPlugin = (anyNumberOfParameters) => updateGrid => {
+    pluginLogic
 
     const order = anyOrder;
-    const setGrid = grid => doSomethingWithGrid;
+    const setGrid = grid => modifyGrid;
     const mixinApi = instance => {
-        Object.assign(instance, { yourCustomProps });
+        Object.assign(instance, { customPublicApi });
     };
 
     return { order, setGrid, mixinApi };
 };
 ```
+
+> - anyNumberOfParameters - any number of parameters for plugin,
+> - pluginLogic - all custom logic for that plugin,
+> - anyOrder - set order for plugin when will be called during update grid,
+> - modifyGrid - implement function which modify or calculate grid,
+> - customPublicApi - expose public api for using outside,
+> - updateGrid - given function for invoke when grid update will be needed. Last step in all exposed functions like setSort, setIndex setSize etc.
 
 ## Licence
 
