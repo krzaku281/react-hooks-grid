@@ -1,6 +1,6 @@
 {
   "name": "react-hooks-grid",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Data grid in React Hooks",
   "author": "Marek Krzak <krzakmarek88@gmail.com>",
   "license": "MIT",
