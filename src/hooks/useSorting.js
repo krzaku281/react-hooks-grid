@@ -20,8 +20,8 @@ export const useSorting = (column, descending, customSortFn) => updateGrid => {
 
   const order = 30;
   const setGrid = grid => grid.sort((a, b) => sortFn(a, b, sortColumn, sortDesc));
-  const mixinApi = instance => {
-    Object.assign(instance, { sortColumn, sortDesc, setSort });
+  const mixinApi = api => {
+    Object.assign(api, { sortColumn, sortDesc, setSort });
   };
 
   return { order, setGrid, mixinApi };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useFiltering = (initFilters, customFilters) => updateGrid => {
+export const useFiltering = (initFilters, customPredicates) => updateGrid => {
   const [filters, setFilters] = useState(initFilters || {});
   const [filterFn, setFilterFn] = useState(null);
   const [rowCount, setRowCount] = useState(0);
@@ -19,9 +19,9 @@ export const useFiltering = (initFilters, customFilters) => updateGrid => {
           if (f.type === 'greater') return filterGreater(f);
           if (f.type === 'lesser') return filterLesser(f);
 
-          if (customFilters) {
-            for (let [name, filterFn] of Object.entries(customFilters)) {
-              if (f.type === name) return filterFn(f);
+          if (customPredicates) {
+            for (let [name, predicateFn] of Object.entries(customPredicates)) {
+              if (f.type === name) return predicateFn(f);
             }
           }
 
@@ -43,10 +43,10 @@ export const useFiltering = (initFilters, customFilters) => updateGrid => {
 
   const composeFilters = (...filters) => grid => grid.filter(combineFilters(...filters));
 
-  const filterContains = filter => grid => grid[filter.column].toLowerCase().indexOf(filter.value.toLowerCase()) > -1;
-  const filterEquals = filter => grid => grid[filter.column] === filter.value;
-  const filterGreater = filter => grid => grid[filter.column] > filter.value;
-  const filterLesser = filter => grid => grid[filter.column] < filter.value;
+  const filterContains = filter => row => row[filter.column].toLowerCase().indexOf(filter.value.toLowerCase()) > -1;
+  const filterEquals = filter => row => row[filter.column] === filter.value;
+  const filterGreater = filter => row => row[filter.column] > filter.value;
+  const filterLesser = filter => row => row[filter.column] < filter.value;
 
   const order = 20;
   const setGrid = grid => {
@@ -54,8 +54,8 @@ export const useFiltering = (initFilters, customFilters) => updateGrid => {
     setRowCount(newGrid.length);
     return newGrid;
   };
-  const mixinApi = instance => {
-    Object.assign(instance, { filters, setFilter, rowCount });
+  const mixinApi = api => {
+    Object.assign(api, { filters, setFilter, rowCount });
   };
 
   return { order, setGrid, mixinApi };

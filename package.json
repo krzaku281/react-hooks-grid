@@ -1,6 +1,6 @@
 {
   "name": "react-hooks-grid",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Lightweight and customizable data grid for React applications from 16.8 version.",
   "author": "Marek Krzak <krzakmarek88@gmail.com>",
   "license": "MIT",

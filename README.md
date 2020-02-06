@@ -46,18 +46,22 @@ To create your own plugin go to section useCustomPlugin.
 
 ### useSorting
 
-useSorting(initColumn, initDescending, customSortFn)
+useSorting(column, descending, customSortFn)
 
-- initColumn - initial column choice
-- initDescending - initial order descending choice
-- customSortFn - custom function of sorting - customFn(rowA, rowB, column, orderDescending)
+- column - initial column choice
+- descending - initial order choice, is it descending
+- customSortFn - custom function of sorting - customFn(rowA, rowB, column, descending)
 
-setSort(columnName, descendingOrder)
+setSort(column, descending)
 
-- columnName - sorting by new column
-- descendingOrder - sorting by new order
+- column - sorting by new column
+- descending - sorting by new order
 
-Multi column sorting - put array of column to columnName, array of ordering to descendingOrder and custom function to customSortFn.
+Special sorting rules or local difference - if is needed create own sort function and put as customSortFn
+
+Multi column sorting - if multi sorting is needed, only change some parameters. 'column' use as array of column next 'descending' the same and and set your own sort function.
+
+order = 30
 
 ```sh
 import { useGrid, useSorting } from 'react-hooks-grid';
@@ -89,19 +93,30 @@ const DataGrid = ({data}) => {
 export default DataGrid;
 ```
 
-order: 30
-
 ### useFiltering
 
-useFiltering(filters, customFilterDefinitions)
+useFiltering(filters, customPredicates)
 
-- filters - object of filters for grid. As key set id of filter and next as value set object with type of filter and column
-- customFilterDefinitions - custom predicates for filters. As key put predicate name and next custom predicate function with structure: filter => row => { return predicateCondition }
+- filters - filters for grid. Set object where key will be id of filter and value as object with type of filter and column. See sample below.
+- customPredicates - custom predicates for filters. Set object where key will be name of predicate and value as custom predicate function with below structure. You will get filter and row while you should implement predicate condition.
 
-setFilter(filterId, newValue)
+```sh
+filter => row => { return predicateCondition }
+```
+
+setFilter(filterId, value)
 
 - filterId - id of filter
-- newValue - new value to filter
+- value - new value for filter
+
+Filter types
+
+> - contains
+> - equals
+> - greater
+> - lesser
+
+order = 20
 
 ```sh
 import { useGrid, useFiltering } from 'react-hooks-grid';
@@ -112,7 +127,7 @@ const DataGrid = ({data}) => {
             firstNameId: { type: 'contains', column: 'firstName' },
             lastNameId: { type: 'containsWithUpperCase', column: 'lastName' },
         },{
-            containsWithUpperCase: filter => grid => grid[filter.column].indexOf(filter.value) > -1,
+            containsWithUpperCase: filter => row => row[filter.column].indexOf(filter.value) > -1,
         })
     });
 
@@ -148,22 +163,22 @@ const DataGrid = ({data}) => {
 export default DataGrid;
 ```
 
-order: 20
-
 ### usePaging
 
-usePaging(initSize, initIndex)
+usePaging(size, index)
 
-- initSize - initial page size
-- initIndex - initial page index
+- size - initial size of page
+- index - initial page index
 
-setIndex(pageIndex)
+setIndex(index)
 
-- pageIndex - new page index
+- index - new page index
 
-setSize(pageSize)
+setSize(size)
 
-- pageSize - new page size
+- size - new size of page
+
+order = 40
 
 ```sh
 import { useGrid, usePaging } from 'react-hooks-grid';
@@ -193,8 +208,6 @@ const DataGrid = ({data}) => {
 export default DataGrid;
 ```
 
-order: 40
-
 ### useCustomPlugin
 
 If existing plugins that is not enough. Create your own ;)
@@ -217,12 +230,12 @@ export const useCustomPlugin = (anyNumberOfParameters) => updateGrid => {
 };
 ```
 
-> - anyNumberOfParameters - any number of parameters for plugin,
-> - pluginLogic - all custom logic for that plugin,
-> - anyOrder - set order for plugin when will be called during update grid,
-> - modifyGrid - implement function which modify or calculate grid,
-> - customPublicApi - expose public api for using outside,
-> - updateGrid - given function for invoke when grid update will be needed. Last step in all exposed functions like setSort, setIndex setSize etc.
+- anyNumberOfParameters - any number of parameters for plugin,
+- pluginLogic - all custom logic for that plugin,
+- anyOrder - set order for plugin when will be called during update grid,
+- modifyGrid - implement function which modify or calculate grid,
+- customPublicApi - expose public api for using outside,
+- updateGrid - given function for invoke when grid update will be needed. Last step in all exposed functions like setSort, setIndex setSize etc. Don't implement it. Just invoke updateGrid() when it is necessary.
 
 ## Licence
 

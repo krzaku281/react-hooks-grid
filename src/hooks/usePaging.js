@@ -15,13 +15,13 @@ export const usePaging = (size, index) => updateGrid => {
 
   const order = 40;
   const setGrid = grid => grid.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
-  const mixinApi = instance => {
-    Object.assign(instance, {
+  const mixinApi = api => {
+    Object.assign(api, {
       pageIndex,
       pageSize,
       setIndex,
       setSize,
-      pageCount: Math.ceil(instance.rowCount / pageSize),
+      pageCount: Math.ceil(api.rowCount / pageSize),
     });
   };
 
