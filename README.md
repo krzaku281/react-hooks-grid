@@ -26,10 +26,9 @@ const DataGrid = ({data}) => {
 
     return (
         <table>
-            {grid.map(g => (
+            {grid.rows.map(row => (
                 <tr>
-                    <td>{g.firstName}</td>
-                    <td>{g.lastName}</td>
+                    {row.cells.map(cell => (<td>{cell.value}</td>))}
                 </tr>
             ))}
         </table>
@@ -81,10 +80,9 @@ const DataGrid = ({data}) => {
                   <div onClick={e => setSort('lastName', !sortDesc)}>Last Name</div>
                 </th>
             </tr>
-            {grid.map(g => (
+            {grid.rows.map(row => (
                 <tr>
-                    <td>{g.firstName}</td>
-                    <td>{g.lastName}</td>
+                    {row.cells.map(cell => (<td>{cell.value}</td>))}
                 </tr>
             ))}
         </table>
@@ -151,10 +149,9 @@ const DataGrid = ({data}) => {
                     <div>Last Name</div>
                 </th>
             </tr>
-            {grid.map(g => (
+            {grid.rows.map(row => (
                 <tr>
-                    <td>{g.firstName}</td>
-                    <td>{g.lastName}</td>
+                    {row.cells.map(cell => (<td>{cell.value}</td>))}
                 </tr>
             ))}
         </table>
@@ -195,10 +192,9 @@ const DataGrid = ({data}) => {
                 <th>First Name</th>
                 <th>Last Name</th>
             </tr>
-            {grid.map(g => (
+            {grid.rows.map(row => (
                 <tr>
-                    <td>{g.firstName}</td>
-                    <td>{g.lastName}</td>
+                    {row.cells.map(cell => (<td>{cell.value}</td>))}
                 </tr>
             ))}
             <PagingComponent pageIndex={pageIndex}, pageSize={pageSize}, setIndex={setIndex}, setSize={setSize}, pageCount={pageCount} />
@@ -213,6 +209,20 @@ export default DataGrid;
 Embedded plugin which changing structure of entry data. If you want to create a new plugin, you must remember about structure before or after change.
 
 order = 50
+
+Format:
+
+```sh
+grid {
+    rows: [
+        {
+            cells: [
+                { value, key }
+            ]
+        }
+    ]
+}
+```
 
 ### useCustomPlugin
 
