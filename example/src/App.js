@@ -95,14 +95,11 @@ const App = () => {
               </tr>
             </thead>
             <tbody>
-              {grid.map(g => (
-                <tr>
-                  <td>{g.firstName}</td>
-                  <td>{g.lastName}</td>
-                  <td>{g.job}</td>
-                  <td>{g.phone}</td>
-                  <td>{g.birthDate.toLocaleDateString()}</td>
-                  <td>{g.points}</td>
+              {grid.rows.map((row, index) => (
+                <tr key={index}>
+                  {row.cells.map(cell => (
+                    <td key={cell.key}>{cell.value instanceof Date ? cell.value.toLocaleDateString() : cell.value}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>

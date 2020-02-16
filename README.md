@@ -208,6 +208,12 @@ const DataGrid = ({data}) => {
 export default DataGrid;
 ```
 
+### useFormat
+
+Embedded plugin which changing structure of entry data. If you want to create a new plugin, you must remember about structure before or after change.
+
+order = 50
+
 ### useCustomPlugin
 
 If existing plugins that is not enough. Create your own ;)
